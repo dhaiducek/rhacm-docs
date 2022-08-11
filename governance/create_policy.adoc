@@ -1,10 +1,8 @@
 [#managing-security-policies]
 = Managing security policies
 
-Create a security policy to report and validate your cluster compliance based on your specified security standards, categories, and controls. To create a policy for {product-title}, you must create a YAML file on your managed clusters.
-
-*Note*: You can copy and paste an existing policy in to the _Policy YAML_.
-The values for the parameter fields are automatically entered when you paste your existing policy. You can also search the contents in your policy YAML file with the search feature.
+Create a security policy to report and validate your cluster compliance based on your specified security standards,
+categories, and controls.
 
 View the following sections:
 
@@ -27,12 +25,17 @@ You can create a security policy from the command line interface (CLI) or from t
 
 **Required access**: Cluster administrator
 
-*Important*: You must define a placement rule and placement binding to apply your policy to a specific cluster. Enter a valid value for the _Cluster selector_ field to define a `PlacementRule` and `PlacementBinding`. See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#resources-that-support-set-based-requirements[Resources that support support set-based requirements] in the Kubernetes documentation for a valid expression. View the definitions of the objects that are required for your {product-title-short} policy:
+*Important*: You must define a placement rule and placement binding to apply your policy to a specific cluster. Enter a
+valid value for the _Cluster selector_ field to define a `PlacementRule` and `PlacementBinding`. See
+https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#resources-that-support-set-based-requirements[Resources
+that support support set-based requirements] in the Kubernetes documentation for a valid expression. View the
+definitions of the objects that are required for your {product-title-short} policy:
 
 * _PlacementRule_: Defines a _cluster selector_ where the policy must be deployed.
 * _PlacementBinding_: Binds the placement to a placement rule.
 
-View more descriptions of the policy YAML files in the xref:../governance/policy_example.adoc#policy-overview[Policy overview].
+View more descriptions of the policy YAML files in the xref:../governance/policy_example.adoc#policy-overview[Policy
+overview].
 
 [#creating-a-security-policy-from-the-command-line-interface]
 === Creating a security policy from the command line interface
@@ -42,11 +45,11 @@ Complete the following steps to create a policy from the command line interface 
 . Create a policy by running the following command:
 +
 ----
-kubectl create -f policy.yaml -n <namespace>
+kubectl create -f policy.yaml -n <policy-namespace>
 ----
 
 . Define the template that the policy uses.
-Edit your `.yaml` file by adding a `templates` field to define a template.
+Edit your `.yaml` file by adding a `policy-templates` field to define a template.
 Your policy might resemble the following YAML file:
 
 +
@@ -59,16 +62,17 @@ metadata:
 spec:
   remediationAction: "enforce" # or inform
   disabled: false # or true
-  namespaces:
-    include: ["default"]
-    exclude: ["kube*"]
+  namespaceSelector:
+    include:
+    - "default"
+    - "my-namespace"
   policy-templates:
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          namespace: kube-system # will be inferred
           name: operator
+          # namespace: # will be supplied by the controller via the namespaceSelector
         spec:
           remediationAction: "inform"
           object-templates:
@@ -86,7 +90,9 @@ spec:
 ----
 
 . Define a `PlacementRule`.
-Be sure to change the `PlacementRule` to specify the clusters where the policies need to be applied, either by `clusterNames`, or `clusterLabels`. View link:../applications/placement_sample.adoc#placement-rule-samples[Placement rule samples overview]
+Be sure to change the `PlacementRule` to specify the clusters where the policies need to be applied, either by
+`clusterNames`, or `clusterLabels`. View link:../applications/placement_sample.adoc#placement-rule-samples[Placement
+rule samples overview]
 +
 Your `PlacementRule` might resemble the following content:
 +
@@ -108,7 +114,7 @@ spec:
       cloud: IBM
 ----
 
-. Define a `PlacementBinding` to bind your policy and your `PlacementRule`.
+. Define a `PlacementBinding` to bind your policy to your `PlacementRule`.
 Your `PlacementBinding` might resemble the following YAML sample:
 +
 [source,yaml]
@@ -135,13 +141,13 @@ Complete the following steps to view your security policy from the CLI:
 . View details for a specific security policy by running the following command:
 +
 ----
-kubectl get securitypolicy <policy-name> -n <namespace> -o yaml
+kubectl get policies.policy.open-cluster-management.io <policy-name> -n <policy-namespace> -o yaml
 ----
 
 . View a description of your security policy by running the following command:
 +
 ----
-kubectl describe securitypolicy <name> -n <namespace>
+kubectl describe policies.policy.open-cluster-management.io <policy-name> -n <policy-namespace>
 ----
 
 [#creating-a-cluster-security-policy-from-the-console]
@@ -149,7 +155,8 @@ kubectl describe securitypolicy <name> -n <namespace>
 
 After you log into your {product-title-short}, navigate to the _Governance_ page and click *Create policy*.
 
-As you create your new policy from the console, a YAML file is also created in the YAML editor. To view the YAML editor, select the toggle at the beginning of the _Create policy_ form to enable it.
+As you create your new policy from the console, a YAML file is also created in the YAML editor. To view the YAML editor,
+select the toggle at the beginning of the _Create policy_ form to enable it.
 
 Complete the _Create policy_ form, then select the *Submit* button. 
 
@@ -167,7 +174,7 @@ Your YAML file might resemble the following policy:
      policy.open-cluster-management.io/standards: 'NIST,HIPAA'
  spec:
    complianceType: musthave
-   namespaces:
+   namespaceSelector:
      exclude: ["kube*"]
      include: ["default"]
    object-templates:
@@ -220,14 +227,18 @@ Click *Create Policy*. A security policy is created from the console.
 ==== Viewing your security policy from the console
 
 View any security policy and its status from the console.
-Navigate to the _Governance_ page to view a table list of your policies. *Note*: You can filter the table list of your policies by selecting the _Policies_ tab or _Cluster violations_ tab.
+Navigate to the _Governance_ page to view a table list of your policies. *Note*: You can filter the table list of your
+policies by selecting the _Policies_ tab or _Cluster violations_ tab.
 
-Select one of your policies to view more details. The _Details_, _Clusters_, and _Templates_ tabs are displayed. When the cluster or policy status cannot be determined, the following message is displayed: `No status`.
+Select one of your policies to view more details. The _Details_, _Clusters_, and _Templates_ tabs are displayed. When
+the cluster or policy status cannot be determined, the following message is displayed: `No status`.
 
 [#creating-policy-sets-cli]
 === Creating policy sets from the CLI
 
-By default, the policy set is created with no policies or placements. You must create a placement for the policy set and have at least one policy that exists on your cluster. When you create a policy set, you can add numerous policies. Run the following command to create a policy set from the CLI:
+By default, the policy set is created with no policies or placements. You must create a placement for the policy set and
+have at least one policy that exists on your cluster. When you create a policy set, you can add numerous policies. Run
+the following command to create a policy set from the CLI:
 
 ----
 kubectl apply -f <policyset-filename>
@@ -236,9 +247,11 @@ kubectl apply -f <policyset-filename>
 [#creating-policy-sets-ui]
 === Creating policy sets from the console
 
-From the navigation menu, select *Governance*. Then select the _Policy sets_ tab. Select the *Create policy set* button and complete the form. After you add the details for your policy set, select the *Submit* button.
+From the navigation menu, select *Governance*. Then select the _Policy sets_ tab. Select the *Create policy set* button
+and complete the form. After you add the details for your policy set, select the *Submit* button.
 
-View the stable `Policyets`, which require the policy generator for deployment, link:https://github.com/stolostron/policy-collection/tree/main/policygenerator/policy-sets/stable[PolicySets-- Stable].
+View the stable `PolicySets`, which require the policy generator for deployment,
+link:https://github.com/stolostron/policy-collection/tree/main/policygenerator/policy-sets/stable[PolicySets-- Stable].
 
 [#updating-security-policies]
 == Updating security policies
@@ -250,12 +263,16 @@ Learn to update security policies by viewing the following section.
 
 Run the following command to edit your policy set: `kubectl edit policysets your-policyset-name`
 
-Add the policy name to the list in the `policies` section of the policy set. Apply your added policy in the placement section of your policy set with the following command: `kubectl apply -f your-added-policy.yaml`. A `PlacementBinding` and `PlacementRule` are created. *Note*: If you delete the placement binding, the policy is still placed by the policy set.
+Add the policy name to the list in the `policies` section of the policy set. Apply your added policy in the placement
+section of your policy set with the following command: `kubectl apply -f your-added-policy.yaml`. A `PlacementBinding`
+and `PlacementRule` are created.
+*Note*: If you delete the placement binding, the policy is still placed by the policy set.
 
 [#adding-a-policy-ui]
 === Adding a policy to a policy set from the console
 
-Add a policy to the policy set by selecting the *_Policy sets_* tab. Select the Actions icon and select *Edit*. The _Edit policy set_ form appears.
+Add a policy to the policy set by selecting the *_Policy sets_* tab. Select the Actions icon and select *Edit*. The
+_Edit policy set_ form appears.
 
 Navigate to the _Policies_ section of the form to select a policy to add to the policy set. 
 
@@ -279,23 +296,27 @@ Delete a security policy from the CLI or the console.
 .. Delete a security policy by running the following command:
 +
 ----
-kubectl delete policy <securitypolicy-name> -n <open-cluster-management-namespace>
+kubectl delete policies.policy.open-cluster-management.io <policy-name> -n <policy-namespace>
 ----
 +
-After your policy is deleted, it is removed from your target cluster or clusters. Verify that your policy is removed by running the following command: `kubectl get policy <securitypolicy-name> -n <open-cluster-management-namespace>`
+After your policy is deleted, it is removed from your target cluster or clusters. Verify that your policy is removed by
+running the following command: `kubectl get policies.policy.open-cluster-management.io <policy-name> -n <policy-namespace>`
 
 * Delete a security policy from the console:
 +
-From the navigation menu, click *Governance* to view a table list of your policies. Click the *Actions* icon for the policy you want to delete in the policy violation table.
+From the navigation menu, click *Governance* to view a table list of your policies. Click the *Actions* icon for the
+policy you want to delete in the policy violation table.
 +
 Click *Remove*. From the _Remove policy_ dialog box, click *Remove policy*
 
 [#deleting-policy-sets]
 === Deleting policy sets from the console
 
-From the _Policy sets_ tab, select the *Actions* icon for the policy set. When you click *Delete*, the _Permanently delete Policyset?_ dialogue box appears. 
+From the _Policy sets_ tab, select the *Actions* icon for the policy set. When you click *Delete*, the _Permanently
+delete Policyset?_ dialogue box appears. 
 
 Click the *Delete* button.
 
-To manage other policies, see xref:../governance/create_policy.adoc#managing-security-policies[Managing security policies] for more information.
-Refer to xref:../governance/grc_intro.adoc#governance[Governance] for more topics about policies.
+To manage other policies, see xref:../governance/create_policy.adoc#managing-security-policies[Managing security
+policies] for more information. Refer to xref:../governance/grc_intro.adoc#governance[Governance] for more topics about
+policies.
