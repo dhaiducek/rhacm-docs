@@ -1,0 +1,218 @@
+version: 3
+outputDir: build
+apisToHide: []
+apiMap:
+- name: action.open-cluster-management.io
+  resources:
+  - kind: ManagedClusterAction
+    group: action.open-cluster-management.io
+    version: v1beta1
+- name: addon.open-cluster-management.io
+  resources:
+  - kind: AddOnDeploymentConfig
+    group: addon.open-cluster-management.io
+    version: v1alpha1
+  - kind: AddOnTemplate
+    group: addon.open-cluster-management.io
+    version: v1alpha1
+  - kind: ClusterManagementAddOn
+    group: addon.open-cluster-management.io
+    version: v1alpha1
+  - kind: ManagedClusterAddOn
+    group: addon.open-cluster-management.io
+    version: v1alpha1
+- name: agent.open-cluster-management.io
+  resources:
+  - kind: KlusterletAddonConfig
+    group: agent.open-cluster-management.io
+    version: v1
+- name: clusterview.open-cluster-management.io
+  resources:
+  - kind: ManagedCluster
+    group: clusterview.open-cluster-management.io
+    version: v1
+  - kind: ManagedClusterSet
+    group: clusterview.open-cluster-management.io
+    version: v1alpha1
+- name: apps.open-cluster-management.io
+  resources:
+  - kind: Channel
+    group: apps.open-cluster-management.io
+    version: v1
+  - kind: Deployable
+    group: apps.open-cluster-management.io
+    version: v1
+  - kind: HelmRelease
+    group: apps.open-cluster-management.io
+    version: v1
+  - kind: PlacementRule
+    group: apps.open-cluster-management.io
+    version: v1
+  - kind: Subscription
+    group: apps.open-cluster-management.io
+    version: v1
+  - kind: MulticlusterApplicationSetReport
+    group: apps.open-cluster-management.io
+    version: v1alpha1
+  - kind: SubscriptionReport
+    group: apps.open-cluster-management.io
+    version: v1alpha1
+  - kind: SubscriptionStatus
+    group: apps.open-cluster-management.io
+    version: v1alpha1
+  - kind: GitOpsCluster
+    group: apps.open-cluster-management.io
+    version: v1beta1
+- name: authentication.open-cluster-management.io
+  resources:
+  - kind: ManagedServiceAccount
+    group: authentication.open-cluster-management.io
+    version: v1beta1
+- name: cluster.open-cluster-management.io
+  resources:
+  - kind: ManagedCluster
+    group: cluster.open-cluster-management.io
+    version: v1
+  - kind: AddOnPlacementScore
+    group: cluster.open-cluster-management.io
+    version: v1alpha1
+  - kind: ClusterClaim
+    group: cluster.open-cluster-management.io
+    version: v1alpha1
+  - kind: BackupSchedule
+    group: cluster.open-cluster-management.io
+    version: v1beta1
+  - kind: ClusterCurator
+    group: cluster.open-cluster-management.io
+    version: v1beta1
+  - kind: Placement
+    group: cluster.open-cluster-management.io
+    version: v1beta1
+  - kind: PlacementDecision
+    group: cluster.open-cluster-management.io
+    version: v1beta1
+  - kind: Restore
+    group: cluster.open-cluster-management.io
+    version: v1beta1
+  - kind: ManagedClusterSet
+    group: cluster.open-cluster-management.io
+    version: v1beta2
+  - kind: ManagedClusterSetBinding
+    group: cluster.open-cluster-management.io
+    version: v1beta2
+- name: config.open-cluster-management.io
+  resources:
+  - kind: KlusterletConfig
+    group: config.open-cluster-management.io
+    version: v1alpha1
+- name: console.open-cluster-management.io
+  resources:
+  - kind: UserPreference
+    group: console.open-cluster-management.io
+    version: v1
+- name: discovery.open-cluster-management.io
+  resources:
+  - kind: DiscoveredCluster
+    group: discovery.open-cluster-management.io
+    version: v1
+  - kind: DiscoveryConfig
+    group: discovery.open-cluster-management.io
+    version: v1
+- name: imageregistry.open-cluster-management.io
+  resources:
+  - kind: ManagedClusterImageRegistry
+    group: imageregistry.open-cluster-management.io
+    version: v1alpha1
+- name: internal.open-cluster-management.io
+  resources:
+  - kind: ManagedClusterInfo
+    group: internal.open-cluster-management.io
+    version: v1beta1
+- name: observability.open-cluster-management.io
+  resources:
+  - kind: ObservabilityAddon
+    group: observability.open-cluster-management.io
+    version: v1beta1
+  - kind: MultiClusterObservability
+    group: observability.open-cluster-management.io
+    version: v1beta2
+- name: operator.open-cluster-management.io
+  resources:
+  - kind: ClusterManager
+    group: operator.open-cluster-management.io
+    version: v1
+  - kind: Klusterlet
+    group: operator.open-cluster-management.io
+    version: v1
+  - kind: MultiClusterHub
+    group: operator.open-cluster-management.io
+    version: v1
+- name: policy.open-cluster-management.io
+  resources:
+  - kind: CertificatePolicy
+    group: policy.open-cluster-management.io
+    version: v1
+  - kind: ConfigurationPolicy
+    group: policy.open-cluster-management.io
+    version: v1
+  - kind: IamPolicy
+    group: policy.open-cluster-management.io
+    version: v1
+  - kind: PlacementBinding
+    group: policy.open-cluster-management.io
+    version: v1
+  - kind: Policy
+    group: policy.open-cluster-management.io
+    version: v1
+  - kind: OperatorPolicy
+    group: policy.open-cluster-management.io
+    version: v1beta1
+  - kind: PolicyAutomation
+    group: policy.open-cluster-management.io
+    version: v1beta1
+  - kind: PolicySet
+    group: policy.open-cluster-management.io
+    version: v1beta1
+- name: proxy.open-cluster-management.io
+  resources:
+  - kind: ManagedProxyConfiguration
+    group: proxy.open-cluster-management.io
+    version: v1alpha1
+  - kind: ManagedProxyServiceResolver
+    group: proxy.open-cluster-management.io
+    version: v1alpha1
+- name: rbac.open-cluster-management.io
+  resources:
+  - kind: ClusterPermission
+    group: rbac.open-cluster-management.io
+    version: v1alpha1
+- name: search.open-cluster-management.io
+  resources:
+  - kind: Search
+    group: search.open-cluster-management.io
+    version: v1alpha1
+- name: submarineraddon.open-cluster-management.io
+  resources:
+  - kind: SubmarinerConfig
+    group: submarineraddon.open-cluster-management.io
+    version: v1alpha1
+  - kind: SubmarinerDiagnoseConfig
+    group: submarineraddon.open-cluster-management.io
+    version: v1alpha1
+- name: view.open-cluster-management.io
+  resources:
+  - kind: ManagedClusterView
+    group: view.open-cluster-management.io
+    version: v1beta1
+- name: work.open-cluster-management.io
+  resources:
+  - kind: AppliedManifestWork
+    group: work.open-cluster-management.io
+    version: v1
+  - kind: ManifestWork
+    group: work.open-cluster-management.io
+    version: v1
+  - kind: ManifestWorkReplicaSet
+    group: work.open-cluster-management.io
+    version: v1alpha1
+
