@@ -23,5 +23,5 @@ jobs:
       - name: Link Check
         uses: lycheeverse/lychee-action@v1
         with:
-          args: --no-progress --timeout 30 --scheme http --scheme https --require-https "./**/main.html"
+          args: --no-progress --timeout 30 --exclude-path "./**/main.html" "./**/*.html"
           fail: true
