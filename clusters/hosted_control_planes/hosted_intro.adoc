@@ -55,5 +55,5 @@ For additional resources about hosted control planes, see the following {ocp-sho
 
 * link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/hosted_control_planes/hcp-overview#hosted-control-planes-architecture_hcp-overview[Architecture of hosted control planes]
 * link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/hosted_control_planes/hcp-overview#hosted-control-planes-concepts-personas_hcp-overview[Glossary of common concepts and personas for hosted control planes]
-* link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/hosted_control_planes/hcp-managing#hosted-control-planes-monitoring-dashboard_hcp-managing[Creating monitoring dashboards for hosted clusters]
+* link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/hosted_control_planes/hcp-observability#hosted-control-planes-monitoring-dashboard_hcp-observability[Creating monitoring dashboards for hosted clusters]
 * link:https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html/hosted_control_planes/hcp-backup-restore-dr[Backup, restore, and disaster recovery for hosted control planes]
