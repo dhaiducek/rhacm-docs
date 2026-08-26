@@ -477,19 +477,19 @@ objectDefinition:
 | `date`, `mustToDate`, `now`, `toDate`
 
 | Default 
-| `default`, `empty`, `fromJson`, `mustFromJson`, `ternary`, `toJson`, `toRawJson` 
+| `default`, `empty`, `fromJson`, `mustFromJson`, `ternary`, `mustToRawJson`, `toRawJson`
 
 | Dictionaries and dict
 | `dict`, `dig`, `get`, `hasKey`, `merge`, `mustMerge`, `set`, `unset`
 
 | Integer math
-| `add`, `mul`, `div`, `round`, `sub` 
+| `add`, `mul`, `div`, `round`, `sub`
 
 | Integer slice
-| `until`, `untilStep`, 
+| `until`, `untilStep`
 
 | Lists
-| `append`, `concat`, `has`, `list`, `mustAppend`, `mustHas`, `mustPrepend`, `mustSlice`, `prepend`, `slice` 
+| `append`, `concat`, `has`, `list`, `mustAppend`, `mustHas`, `mustPrepend`, `mustSlice`, `prepend`, `slice`
 
 | String functions
 | `cat`, `contains`, `hasPrefix`, `hasSuffix`, `join`, `lower`, `mustRegexFind`, `mustRegexFindAll`, `mustRegexMatch`, `quote`, `regexFind`, `regexFindAll`, `regexMatch`, `regexQuoteMeta`, `replace`, `split`, `splitn`, `substr`, `trim`, `trimAll`, `trunc`, `upper`
